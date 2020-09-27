@@ -10,8 +10,11 @@ namespace ZPD_Lab_1_3.Tests
     {
         [Theory]
         [InlineData(
-            "On streets electric shocks from stun gun shoot the shadows of crowds    ",
+            "On stree",
             new bool[] { false, false, false, true, true, false, true, false, true, false, true, false, false, false, false, false, true, false, true, false, true, true, true, true, true, true, false, false, false, false, true, true })]
+        [InlineData(
+            "Nurse Cafe      ",
+            new bool[] { false, false, false, true, true, false, true, false, true, false, true, false, false, false, true, false, true, false, true, false, true, true, true, true, true, true, false, false, false, false, true, true })]
         public void Encode_AlgorithmsAMEssageKey_ReturnsMessageEncodedForKey(string message, bool[] key)
         {
             FeistelCipher cipher = new FeistelCipher(16, new SubKeyGeneratorA(), new CipherFunctionA());
