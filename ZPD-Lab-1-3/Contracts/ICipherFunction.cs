@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Text;
 
 namespace ZPD_Lab_1_3.Contracts
 {
-    interface ICipherFunction
+    public interface ICipherFunction
     {
+        public BitArray CipherFunction(BitArray leftHalf, BitArray subKey, Scrambler scrambler, int round);
     }
 }
