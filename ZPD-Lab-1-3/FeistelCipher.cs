@@ -22,49 +22,50 @@ namespace ZPD_Lab_1_3
             _cipherFunction = cipherFunction;
         }
 
-        public string Encode(string message, BitArray key)
+        public IEnumerable<char> Encode(char[] messageToEncode, BitArray key)
         {
-            if (message.Length % 8 != 0)
+
+            List<char> message = new List<char>(messageToEncode);
+            if (messageToEncode.Length % 8 != 0)
             {
-                for (int i = message.Length % 8; i < 8; i++)
+                for (int i = messageToEncode.Length % 8; i < 8; i++)
                 {
-                    message = message + " ";
+                    message.Add(' ');
                 }
             }
-            StringBuilder stringBuilder = new StringBuilder();
+            List<char> encodedMessage = new List<char>() ;
 
-            for (int block64 = 0; block64 < message.Length / 8; block64++)
+            for (int block64 = 0; block64 < message.Count; block64 += 8)
             {
                 (BitArray leftHalf, BitArray rightHalf)
-                    = _splitIntoHalves(message.Substring(block64 * 8, block64 * 8 + 8));
+                    = _splitIntoHalves(SubArray(message.ToArray(), block64, 8));
                 bool[] encodedBits = _encodeBlock(leftHalf, rightHalf, key);
-                stringBuilder.Append(_parseBlock(encodedBits));
+                encodedMessage.AddRange(_parseBlock(encodedBits));
             }
 
-            return stringBuilder.ToString();
+            return encodedMessage;
         }
 
-        public string Decode(string message, BitArray key)
+        public IEnumerable<char> Decode(char[] messageToDecode, BitArray key)
         {
-            if (message.Length % 8 != 0)
-            {
-                for (int i = message.Length % 8; i < 8; i++)
-                {
-                    message = message + " ";
-                }
-            }
-            StringBuilder stringBuilder = new StringBuilder();
 
-            for (int block64 = 0; block64 < message.Length / 8; block64++)
+            List<char> message = new List<char>(messageToDecode);
+
+            List<char> decodedMessage = new List<char>();
+
+            for (int block64 = 0; block64 < message.Count; block64 += 8)
             {
                 (BitArray leftHalf, BitArray rightHalf)
-                    = _splitIntoHalves(message.Substring(block64 * 8, block64 * 8 + 8));
+                    = _splitIntoHalves(SubArray(message.ToArray(), block64, 8));
                 bool[] encodedBits = _decodeBlock(leftHalf, rightHalf, key);
-                stringBuilder.Append(_parseBlock(encodedBits));
+                decodedMessage.AddRange(_parseBlock(encodedBits));
             }
 
-            return stringBuilder.ToString();
+            return decodedMessage;
         }
+
+
+
 
         private bool[] _encodeBlock(BitArray leftHalf, BitArray rightHalf, BitArray key)
         {
@@ -92,7 +93,7 @@ namespace ZPD_Lab_1_3
             for (int round = 0; round < 16; round++)
             {
                 Scrambler scrambler = null;
-                BitArray subKey = _subKeyGenerator.GenerateSubkey(key, scrambler, 16 - round);
+                BitArray subKey = _subKeyGenerator.GenerateSubkey(key, scrambler, 15 - round);
                 BitArray functionResult = _cipherFunction.CipherFunction(leftHalf, subKey, scrambler, round);
 
                 rightHalf = rightHalf.Xor(functionResult);
@@ -107,44 +108,51 @@ namespace ZPD_Lab_1_3
             return encodedBits;
         }
 
-        private (BitArray, BitArray) _splitIntoHalves(string charBlock)
+        private (BitArray, BitArray) _splitIntoHalves(char[] charBlock)
         {
-            string leftHalfChar = charBlock.Substring(0, charBlock.Length / 2);
-            string rightHalfChar = charBlock.Substring(charBlock.Length / 2);
+            char[] leftHalfChar = SubArray(charBlock, 0, charBlock.Length / 2);
+            char[] rightHalfChar = SubArray(charBlock, charBlock.Length / 2, charBlock.Length / 2);
 
 
             BitArray leftHalf = new BitArray
             (
-                leftHalfChar.ToCharArray().Reverse() //Reverse the order under the assumption that the start of the bitArray is little endian
+                leftHalfChar.Reverse() //Reverse the order under the assumption that the start of the bitArray is little endian
                     .Select(c => (byte)c).ToArray() //Convert to byte (i.e. 8-bit int) to write hte 8-bit binary values
             );
 
             BitArray rightHalf = new BitArray
             (
-                rightHalfChar.ToCharArray().Reverse() 
+                rightHalfChar.Reverse() 
                     .Select(c => (byte)c).ToArray()
             );
 
             return (leftHalf, rightHalf);
         }
 
-        private string _parseBlock(bool[] encodedBits)
+        private char[] _parseBlock(bool[] encodedBits)
         {
             char[] decodedChars = new char[encodedBits.Length/8];
             for (int i = encodedBits.Length - 1; i >= 0; i -= 8)
             {
                 int numericValue = 0;
-                for (int j = 0; j < 8; j-- )
+                for (int j = 0; j < 8; j++ )
                 {
                     if (encodedBits[i - j])
                     {
-                        numericValue += (int) Math.Pow(2, 7 - (i - j));
+                        numericValue += (int) Math.Pow(2, 7 - j);
                     }
                 }
                 decodedChars[7 - i / 8] = (char) numericValue;
             }
 
-            return decodedChars.ToString();
+            return decodedChars;
+        }
+
+        private char[] SubArray(char[] data, int index, int length)
+        {
+            char[] result = new char[length];
+            Array.Copy(data, index, result, 0, length);
+            return result;
         }
     }
 }
