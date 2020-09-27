@@ -8,7 +8,7 @@ namespace ZPD_Lab_1_3.Algorithms
 {
     public class SubKeyGeneratorA : ISubKeyGenerator
     {
-        public BitArray GenerateSubkey(BitArray key, Scrambler scrambler, int round)
+        public BitArray GenerateSubkey(BitArray key, int round)
         {
             BitArray subKey = new BitArray(key);
             for (int i = 0; i < 32; i++)

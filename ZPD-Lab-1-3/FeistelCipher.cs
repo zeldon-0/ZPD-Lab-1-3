@@ -71,9 +71,8 @@ namespace ZPD_Lab_1_3
         {
             for (int round = 0; round < 16;  round++)
             {
-                Scrambler scrambler = null;
-                BitArray subKey = _subKeyGenerator.GenerateSubkey(key, scrambler, round);
-                BitArray functionResult = _cipherFunction.CipherFunction(leftHalf, subKey, scrambler, round);
+                BitArray subKey = _subKeyGenerator.GenerateSubkey(key, round);
+                BitArray functionResult = _cipherFunction.CipherFunction(leftHalf, subKey,  round);
 
                 rightHalf = rightHalf.Xor(functionResult);
 
@@ -92,9 +91,8 @@ namespace ZPD_Lab_1_3
         {
             for (int round = 0; round < 16; round++)
             {
-                Scrambler scrambler = null;
-                BitArray subKey = _subKeyGenerator.GenerateSubkey(key, scrambler, round);
-                BitArray functionResult = _cipherFunction.CipherFunction(leftHalf, subKey, scrambler, round);
+                BitArray subKey = _subKeyGenerator.GenerateSubkey(key, round);
+                BitArray functionResult = _cipherFunction.CipherFunction(leftHalf, subKey, round);
 
                 rightHalf = rightHalf.Xor(functionResult);
 
