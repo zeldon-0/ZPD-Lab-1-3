@@ -1,0 +1,13 @@
+E:\ZPD\ZPD-Lab-1-3\ZPD-Lab-1-3\bin\Debug\netcoreapp3.1\ZPD-Lab-1-3.exe
+E:\ZPD\ZPD-Lab-1-3\ZPD-Lab-1-3\bin\Debug\netcoreapp3.1\ZPD-Lab-1-3.deps.json
+E:\ZPD\ZPD-Lab-1-3\ZPD-Lab-1-3\bin\Debug\netcoreapp3.1\ZPD-Lab-1-3.runtimeconfig.json
+E:\ZPD\ZPD-Lab-1-3\ZPD-Lab-1-3\bin\Debug\netcoreapp3.1\ZPD-Lab-1-3.runtimeconfig.dev.json
+E:\ZPD\ZPD-Lab-1-3\ZPD-Lab-1-3\bin\Debug\netcoreapp3.1\ZPD-Lab-1-3.dll
+E:\ZPD\ZPD-Lab-1-3\ZPD-Lab-1-3\bin\Debug\netcoreapp3.1\ZPD-Lab-1-3.pdb
+E:\ZPD\ZPD-Lab-1-3\ZPD-Lab-1-3\obj\Debug\netcoreapp3.1\ZPD-Lab-1-3.csprojAssemblyReference.cache
+E:\ZPD\ZPD-Lab-1-3\ZPD-Lab-1-3\obj\Debug\netcoreapp3.1\ZPD-Lab-1-3.AssemblyInfoInputs.cache
+E:\ZPD\ZPD-Lab-1-3\ZPD-Lab-1-3\obj\Debug\netcoreapp3.1\ZPD-Lab-1-3.AssemblyInfo.cs
+E:\ZPD\ZPD-Lab-1-3\ZPD-Lab-1-3\obj\Debug\netcoreapp3.1\ZPD-Lab-1-3.csproj.CoreCompileInputs.cache
+E:\ZPD\ZPD-Lab-1-3\ZPD-Lab-1-3\obj\Debug\netcoreapp3.1\ZPD-Lab-1-3.dll
+E:\ZPD\ZPD-Lab-1-3\ZPD-Lab-1-3\obj\Debug\netcoreapp3.1\ZPD-Lab-1-3.pdb
+E:\ZPD\ZPD-Lab-1-3\ZPD-Lab-1-3\obj\Debug\netcoreapp3.1\ZPD-Lab-1-3.genruntimeconfig.cache
